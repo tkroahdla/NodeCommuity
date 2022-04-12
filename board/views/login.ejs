@@ -7,16 +7,16 @@
 <body>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="#">
+		<form action="/new" method="post">
 			<h1>Create Account</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fa fa-facebook fa-2x"></i></a>
 				<a href="#" class="social"><i class="fab fa fa-twitter fa-2x"></i></a>
 			</div>
 			<span>or use your email for registration</span>
-			<input type="text" placeholder="Name" />
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
+			<input type="text" placeholder="Name"  name="name" />
+			<input type="email" placeholder="Email"  name="id" />
+			<input type="password" placeholder="Password" name="pw"/>
 			<button>Sign Up</button>
 		</form>
 	</div>

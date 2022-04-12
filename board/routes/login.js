@@ -25,6 +25,19 @@ router.get('/', function(req, res) {
     res.render('login');
 });
 
+/* 회원가입 */
+router.post('/new', function(req, res){
+  console.log(req.body.password)
+  req.body.password = bcrypt.hashSync(req.body.password, 13)
+  console.log(req.body.password)
+    User_info.create(req.body, function(err, user_info){
+      // console.log(req.body.password)
+      if(err) return res.json(err);
+      res.redirect('/contacts');
+    });
+  });
+
+/* 로그인 */
 router.post('/login',function(req,res){
     console.log(req.body)
     User_info.findOne({id:req.body.id}, function(err, user_info){ //user_info에 결과값을 담는다.
@@ -37,7 +50,7 @@ router.post('/login',function(req,res){
           if(bcrypt.compareSync(req.body.password, user_info.password)){
             console.log("비밀번호 일치")
 
-            /* 세션 생성 */
+            /* 세션 생성 */ 
             req.session.userId = user_info;
             console.log(req.session.userId)
             req.session.save(()=>{
