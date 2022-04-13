@@ -4,11 +4,21 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
+var mongoose = require('mongoose');
 require('dotenv').config({path: __dirname + '\\' + '.env'});
 
-var indexRouter = require('./routes/index');
 
+var indexRouter = require('./routes/index');
 var app = express();
+
+mongoose.connect(process.env.MONGO_DB);
+var db = mongoose.connection;
+db.once('open', function(){
+  console.log('DB connected');
+});
+db.on('error', function(err){
+  console.log('DB ERROR : ', err);
+});
 
 /* Session */
 app.use(session({
