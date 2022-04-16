@@ -3,19 +3,17 @@ var router = express.Router();
 const bcrypt = require('bcrypt')
 var User_info = require('../models/User');
 
+
+
 router.get('/', function(req, res) {
     res.render('login');
 });
 
 /* 회원가입 */
 router.post('/new', function(req, res){
-  console.log(req.body.password)
-  req.body.password = bcrypt.hashSync(req.body.password, 13)
-  console.log(req.body.password)
     User_info.create(req.body, function(err, user_info){
-      // console.log(req.body.password)
       if(err) return res.json(err);
-      res.redirect('/contacts');
+      res.redirect('/');
     });
   });
 
@@ -55,3 +53,21 @@ router.post('/login',function(req,res){
 })
 
 module.exports = router;
+
+
+router.get('/create', (req, res, next) => {
+  User.findOne({ id: 'test', pwd: 'test' }, (err, user) => {
+    if (err) return res.status(500).json({ error: err });
+    if (!user) {
+      const userData = {
+        id: process.env.USER_ID,  // User ID
+        pwd: process.env.USER_PW,  // User PW
+      };
+      User.create(userData, (err, user) => {
+        if (err) next(err);
+        else return res.redirect('/login');
+      });
+    }
+    return res.redirect('/login');
+  });
+});
