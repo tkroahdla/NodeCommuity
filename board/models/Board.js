@@ -1,0 +1,11 @@
+var mongoose = require('mongoose')
+
+/* DB schema - 게시물 */
+var board = mongoose.Schema({
+    title:{type:String, required:true, unique:true},
+    content:{type:String},
+    writer:{type:String}
+  });
+  var Board = mongoose.model('board', board);
+
+  module.exports = Board;

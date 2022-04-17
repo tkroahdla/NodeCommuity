@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<%- include('./partials/head') %>
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	</head>
 	<body class="is-preload">
 
@@ -29,23 +29,29 @@
 										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
 									</ul>
 								</header>
-								<br>
-							<!-- Content -->
-							<table>
-								<td style = "font-weight: 900; font-size:1.4em;">Board</td>
-							</table>
-							
-									<% boards.forEach(function(board) { %>
-									<div onclick="location.href='/board/<%=board._id%>'" style = " border: ridge 1px; padding: 10px 10px 15px 10px; margin-bottom: 8px; cursor:pointer"  class="col-6 col-12-medium">
-										<p><span class="image left"><img src="images/pic01.jpg" alt="" /></span><span style="font-weight: 900; font-size:1.2em; color: black;"><%=board.title%></span><br><%=board.content %><br>작성자 : <%=board.writer %> </p>
-										
-									</div>
-									
-									<% }) %>
-									<br>
-									<button class="button primary Medium" onclick="location.href='/board/new'">글쓰기</button>
-									
-										<!-- <p><span class="image left"><img src="images/pic01.jpg" alt="" /></span><br>Lorem ipsum dolor sit accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p> -->
+								<br><br>
+									<!-- Form -->
+									<h3>Write</h3>
+									<form method="post" action="/board/new" enctype="multipart/form-data">
+										<div class="row gtr-uniform">
+											<div class="col-6 col-12-xsmall">
+												<input type="text" name="title" id="demo-name" value="" placeholder="Title" />
+											</div>
+											<div class="col-6 col-12-xsmall"></div>
+											<div class="col-12">
+												<textarea name="content" id="demo-message" placeholder="Enter your comment" rows="6"></textarea>
+											</div>
+											<!-- Break -->
+											<input type="file" name="img" >
+											<div class="col-12">
+												<ul class="actions">
+													<li><input type="submit" value="write" class="primary" /></li>
+													<li><input type="reset" value="cancel" /></li>
+												</ul>
+											</div>
+										</div>
+									</form>
+								
 										
 									
 
@@ -77,8 +83,8 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="main">홈</a></li>
-										<li><a href="board">게시판</a></li>
+										<li><a href="../main">홈</a></li>
+										<li><a href="../board">게시판</a></li>
 										<li><a href="elements.html">Elements</a></li>
 										<li>
 											<span class="opener">Submenu</span>
