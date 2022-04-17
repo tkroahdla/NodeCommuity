@@ -7,7 +7,6 @@ const session = require('express-session');
 var mongoose = require('mongoose');
 require('dotenv').config({path: __dirname + '\\' + '.env'});
 
-
 var indexRouter = require('./routes/index');
 var app = express();
 

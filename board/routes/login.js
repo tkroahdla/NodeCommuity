@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt')
 var User_info = require('../models/User');
 
 
-
 router.get('/', function(req, res) {
     res.render('login');
 });
@@ -34,7 +33,7 @@ router.post('/login',function(req,res){
             req.session.userId = user_info;
             console.log(req.session.userId)
             req.session.save(()=>{
-              res.render('index',{user_info:req.session.userId}); // db검색값 객체 전체를 넣어준다.
+              res.redirect('/main'); // db검색값 객체 전체를 넣어준다.
             });
           }
 

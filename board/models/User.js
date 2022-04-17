@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
 /* DB schema - 회원 */
@@ -11,18 +11,23 @@ var user_info = mongoose.Schema({
     {
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
-    
   });
 
+// user_info.virtual('_passwordConfirmation')
+//  .get(function(){ return this._passwordConfirmation; })
+//  .set(function(value){ this._passwordConfirmation=value; });
 
 user_info.pre('save',function(next){
   var user = this
-  user.password= bcrypt.hashSync(user.password, 13)
-  next();
+  if(user.isModified('password')){
+    user.password= bcrypt.hashSync(user.password, 13)
+    next();
+  }
+  else{
+    next();
+  }
 })
 
-
 var User_info = mongoose.model('user_info', user_info);
-
 module.exports = User_info;
 
