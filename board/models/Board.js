@@ -4,7 +4,8 @@ var mongoose = require('mongoose')
 var board = mongoose.Schema({
     title:{type:String, required:true, unique:true},
     content:{type:String},
-    writer:{type:String}
+    writer:{type:String},
+    regDate: {type: Date, index:{unique:false}, default: Date.now()}
   });
   var Board = mongoose.model('board', board);
 

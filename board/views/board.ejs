@@ -34,10 +34,23 @@
 							<table>
 								<td style = "font-weight: 900; font-size:1.4em;">Board</td>
 							</table>
-							
+							<form action="/board" method="get"> <!-- 4 -->
+								<div class="form-row">
+						
+								  <div class="col-4">
+									
+									<select name="limit" class="custom-select" onchange="this.parentElement.parentElement.parentElement.submit()">
+									  <option value="5" <%= limit == 5 ? 'selected':'' %>>5 posts</option>
+									  <option value="10" <%= limit == 10 ? 'selected':'' %>>10 posts</option>
+									  <option value="20" <%= limit == 20 ? 'selected':'' %>>20 posts</option>
+									</select>
+								  </div>
+						
+								</div>
+							  </form>
 									<% boards.forEach(function(board) { %>
 									<div onclick="location.href='/board/<%=board._id%>'" style = " border: ridge 1px; padding: 10px 10px 15px 10px; margin-bottom: 8px; cursor:pointer"  class="col-6 col-12-medium">
-										<p><span class="image left"><img src="images/pic01.jpg" alt="" /></span><span style="font-weight: 900; font-size:1.2em; color: black;"><%=board.title%></span><br><%=board.content %><br>작성자 : <%=board.writer %> </p>
+										<p><span class="image left"><img src="images/pic01.jpg" alt="" /></span><span style="font-weight: 900; font-size:1.2em; color: black;"><%=board.title%></span><br><%=board.content %><br>작성자 : <%=board.writer%> </p>
 										
 									</div>
 									
@@ -45,6 +58,30 @@
 									<br>
 									<button class="button primary Medium" onclick="location.href='/board/new'">글쓰기</button>
 									
+									<nav class="col-8">
+										<% <!-- 2 -->
+										  var offset = 2;
+										  var previousBtnEnabled = currentPage>1;
+										  var nextBtnEnabled = currentPage<maxPage;
+										%>
+							  			<ul class="pagination" style="text-align: center;">            
+										  <li><a href="/board?page=<%= currentPage-1 %>&limit=<%= limit %>" class="button <%= previousBtnEnabled?'':'disabled' %>" <%= previousBtnEnabled?'':'tabindex=-1' %>>Prev</a></li>
+
+										  <% for(i=1;i<=maxPage;i++){ %>
+											<% if(i==1 || i==maxPage || (i>=currentPage-offset && i<=currentPage+offset)){ %>
+											  <li><a class="page <%= currentPage==i?'active':'' %>" href="/board?page=<%= i %>&limit=<%= limit %>"> <%= i %> </a></li>
+											<% } else if(i==2 || i==maxPage-1){ %>
+												<li><span>&hellip;</span></li>
+											<% } %>
+										  <% } %>
+
+										  <li><a href="/board?page=<%= currentPage+1 %>&limit=<%= limit %>" class="button <%= nextBtnEnabled?'':'disabled' %>" <%= nextBtnEnabled?'':'tabindex=-1' %>>Next</a></li>
+										</ul>
+									  </nav>
+									  
+
+
+
 										<!-- <p><span class="image left"><img src="images/pic01.jpg" alt="" /></span><br>Lorem ipsum dolor sit accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p> -->
 										
 									
