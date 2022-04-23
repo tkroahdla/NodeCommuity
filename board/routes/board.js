@@ -2,7 +2,16 @@ var express = require('express');
 var router = express.Router();
 var board = require('../models/Board');
 const multer = require('multer')
-const upload = multer({dest: '../uploadedFiles/'}) //dest : 저장 위치
+// const upload = multer({dest: '../uploadedFiles/'}) //dest : 저장 위치
+const storage = multer.diskStorage({
+  destination: (req, file, callback)=>{
+    callback(null, "../uploadedFiles/");
+  },
+  filename: (req,file,callback) => {
+    callback(null, file.originalname);
+  }
+})
+const upload = multer({storage:storage})
 
 // /* boards - Index */
 // router.get('/', function(req, res) {
