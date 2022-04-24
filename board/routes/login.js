@@ -33,7 +33,7 @@ router.post('/login',function(req,res){
             req.session.userId = user_info;
             console.log(req.session.userId)
             req.session.save(()=>{
-              res.redirect('/main'); // db검색값 객체 전체를 넣어준다.
+              res.redirect('/board'); // db검색값 객체 전체를 넣어준다.
             });
           }
 

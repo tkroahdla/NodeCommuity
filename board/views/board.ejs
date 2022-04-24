@@ -50,7 +50,8 @@
 							  </form>
 									<% boards.forEach(function(board) { %>
 									<div onclick="location.href='/board/<%=board._id%>'" style = " border: ridge 1px; padding: 10px 10px 15px 10px; margin-bottom: 8px; cursor:pointer"  class="col-6 col-12-medium">
-										<p><span class="image left"><img src="images/pic01.jpg" alt="" /></span><span style="font-weight: 900; font-size:1.2em; color: black;"><%=board.title%></span><br><%=board.content %><br>작성자 : <%=board.writer%> </p>
+										<!-- <p><span class="image left"><img src="images/pic01.jpg" alt="" /></span><span style="font-weight: 900; font-size:1.2em; color: black;"><%=board.title%></span><br><%=board.content %><br>작성자 : <%=board.writer%> </p> -->
+										<p><span class="image left"><img src="images/<%=board.img%>" alt="" /></span><span style="font-weight: 900; font-size:1.2em; color: black;"><%=board.title%></span><br><%=board.content %><br>작성자 : <%=board.writer%> </p>
 										
 									</div>
 									
@@ -62,7 +63,7 @@
 										<% <!-- 2 -->
 										  var offset = 2;
 										  var previousBtnEnabled = currentPage>1;
-										  var nextBtnEnabled = currentPage<maxPage;
+										  var nextBtnEnabled = currentPage<maxPage;	
 										%>
 							  			<ul class="pagination" style="text-align: center;">            
 										  <li><a href="/board?page=<%= currentPage-1 %>&limit=<%= limit %>" class="button <%= previousBtnEnabled?'':'disabled' %>" <%= previousBtnEnabled?'':'tabindex=-1' %>>Prev</a></li>

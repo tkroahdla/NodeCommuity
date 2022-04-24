@@ -1,25 +1,18 @@
 var express = require('express');
 var router = express.Router();
+const sharp = require('sharp')
+const fs = require('fs')
 var board = require('../models/Board');
 const multer = require('multer')
-// const upload = multer({dest: '../uploadedFiles/'}) //dest : 저장 위치
 const storage = multer.diskStorage({
   destination: (req, file, callback)=>{
-    callback(null, "../uploadedFiles/");
+    callback(null, "../public/images/");
   },
   filename: (req,file,callback) => {
     callback(null, file.originalname);
   }
 })
 const upload = multer({storage:storage})
-
-// /* boards - Index */
-// router.get('/', function(req, res) {
-//     board.find({}, function(err, boards){
-//         if(err) return res.json(err);
-//         res.render('board', {boards:boards});
-//       });
-// });
 
 /* boards - Index */
 router.get('/',async function(req, res) {
@@ -54,11 +47,12 @@ router.get('/new', function(req, res){
 
   /* boards - create */
   router.post('/new',upload.single('img'), function(req, res){
-    // console.log(req.file.originalname);
+    var random = Math.random().toString(36).slice(2);
+    // console.log(random)
     console.log(req.body)
-
+    reshape(req,req.file.originalname,random)
     req.body.writer = "textId"
-    req.body.img = req.file.originalname;
+    req.body.img = random;
     board.create(req.body, function(err, board){
       if(err){
           res.write("<script>alert('제목 중복!!')</script>");
@@ -77,3 +71,23 @@ router.get('/new', function(req, res){
   });
 
 module.exports = router;
+
+
+
+function reshape(req,name,random){
+  
+  try{
+    sharp('../public/images/'+name)	// 리사이징할 파일의 경로
+        .resize({width:100,height:100})	// 크기 설정
+        .withMetadata()
+        .toFile('../public/images/'+random , (err, info)=>{
+            if(err) throw err               
+            console.log(`info : ${info}`)
+            fs.unlink('../public/images/'+name, (err)=>{	
+              if(err) throw err		
+            })                  
+    	})
+  }catch(err){
+      console.log(err)
+  }
+}
