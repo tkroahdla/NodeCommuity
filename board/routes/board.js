@@ -51,20 +51,19 @@ router.get('/',async function(req, res) {
 router.get('/new', function(req, res){
     res.render('board_new');
   });
-  
+
   /* boards - create */
   router.post('/new',upload.single('img'), function(req, res){
-    // req.body.writer= req.session.userId.name
+    // console.log(req.file.originalname);
+    console.log(req.body)
+
     req.body.writer = "textId"
-    // console.log(req.session.userId.id)
+    req.body.img = req.file.originalname;
     board.create(req.body, function(err, board){
       if(err){
           res.write("<script>alert('제목 중복!!')</script>");
          return res.write("<script>window.location='/board'</script>");
-        // return res.json(err);
       } 
-    //   res.json(req.file)
-    //   console.log(req.file)
       res.redirect('/board');
     });
   });

@@ -5,7 +5,8 @@ var board = mongoose.Schema({
     title:{type:String, required:true, unique:true},
     content:{type:String},
     writer:{type:String},
-    regDate: {type: Date, index:{unique:false}, default: Date.now()}
+    regDate: {type: Date, index:{unique:false}, default: Date.now()},
+    img:{type:String}
   });
   var Board = mongoose.model('board', board);
 
