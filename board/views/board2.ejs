@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<%- include('./partials/head') %>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Editorial</strong> by HTML5 UP</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									</ul>
+								</header>
+								<br>
+							<!-- Content -->
+							<table>
+								<td style = "font-weight: 900; font-size:1.4em;">Board</td>
+							</table>
+							<form action="/board" method="get"> <!-- 4 -->
+								<div class="form-row">
+						
+								  <div class="col-4">
+									
+									<select name="limit" class="custom-select" onchange="this.parentElement.parentElement.parentElement.submit()">
+									  <option value="5" <%= limit == 5 ? 'selected':'' %>>5 posts</option>
+									  <option value="10" <%= limit == 10 ? 'selected':'' %>>10 posts</option>
+									  <option value="20" <%= limit == 20 ? 'selected':'' %>>20 posts</option>
+									</select>
+								  </div>
+						
+								</div>
+							  </form>
+									<% boards.forEach(function(board) { %>
+									<div onclick="location.href='/board/<%=board._id%>'" style = " border: ridge 1px; padding: 10px 10px 15px 10px; margin-bottom: 8px; cursor:pointer"  class="col-6 col-12-medium">
+										<!-- <p><span class="image left"><img src="images/pic01.jpg" alt="" /></span><span style="font-weight: 900; font-size:1.2em; color: black;"><%=board.title%></span><br><%=board.content %><br>작성자 : <%=board.writer%> </p> -->
+										<p><span class="image left"><img src="images/<%=board.img%>" alt="" /></span><span style="font-weight: 900; font-size:1.2em; color: black;"><%=board.title%></span><br><%=board.content %><br>작성자 : <%=board.writer%> </p>
+										
+									</div>
+									
+									<% }) %>
+									<br>
+									<button class="button primary Medium" onclick="location.href='/board/new'">글쓰기</button>
+									
+									<nav class="col-8">
+										<% <!-- 2 -->
+										  var offset = 2;
+										  var previousBtnEnabled = currentPage>1;
+										  var nextBtnEnabled = currentPage<maxPage;	
+										%>
+							  			<ul class="pagination" style="text-align: center;">            
+										  <li><a href="/board?page=<%= currentPage-1 %>&limit=<%= limit %>" class="button <%= previousBtnEnabled?'':'disabled' %>" <%= previousBtnEnabled?'':'tabindex=-1' %>>Prev</a></li>
+
+										  <% for(i=1;i<=maxPage;i++){ %>
+											<% if(i==1 || i==maxPage || (i>=currentPage-offset && i<=currentPage+offset)){ %>
+											  <li><a class="page <%= currentPage==i?'active':'' %>" href="/board?page=<%= i %>&limit=<%= limit %>"> <%= i %> </a></li>
+											<% } else if(i==2 || i==maxPage-1){ %>
+												<li><span>&hellip;</span></li>
+											<% } %>
+										  <% } %>
+
+										  <li><a href="/board?page=<%= currentPage+1 %>&limit=<%= limit %>" class="button <%= nextBtnEnabled?'':'disabled' %>" <%= nextBtnEnabled?'':'tabindex=-1' %>>Next</a></li>
+										</ul>
+									  </nav>
+									  
+
+
+
+										<!-- <p><span class="image left"><img src="images/pic01.jpg" alt="" /></span><br>Lorem ipsum dolor sit accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p> -->
+										
+									
+
+									
+									
+									
+
+							
+
+			
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="main">홈</a></li>
+										<li><a href="board">게시판</a></li>
+										<li><a href="elements.html">Elements</a></li>
+										<li>
+											<span class="opener">Submenu</span>
+											<ul>
+												<li><a href="#">Lorem Dolor</a></li>
+												<li><a href="#">Ipsum Adipiscing</a></li>
+												<li><a href="#">Tempus Magna</a></li>
+												<li><a href="#">Feugiat Veroeros</a></li>
+											</ul>
+										</li>
+										<li><a href="#">Etiam Dolore</a></li>
+										<li><a href="#">Adipiscing</a></li>
+										<li>
+											<span class="opener">Another Submenu</span>
+											<ul>
+												<li><a href="#">Lorem Dolor</a></li>
+												<li><a href="#">Ipsum Adipiscing</a></li>
+												<li><a href="#">Tempus Magna</a></li>
+												<li><a href="#">Feugiat Veroeros</a></li>
+											</ul>
+										</li>
+										<li><a href="#">Maximus Erat</a></li>
+										<li><a href="#">Sapien Mauris</a></li>
+										<li><a href="#">Amet Lacinia</a></li>
+									</ul>
+								</nav>
+
+							
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
+										<li class="icon solid fa-phone">(000) 000-0000</li>
+										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
+										Nashville, TN 00000-0000</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+		<%- include('./partials/script') %>
+	</body>
+</html>

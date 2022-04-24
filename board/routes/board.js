@@ -78,7 +78,7 @@ function reshape(req,name,random){
   
   try{
     sharp('../public/images/'+name)	// 리사이징할 파일의 경로
-        .resize({width:100,height:100})	// 크기 설정
+        .resize({width:160,height:160})	// 크기 설정
         .withMetadata()
         .toFile('../public/images/'+random , (err, info)=>{
             if(err) throw err               
