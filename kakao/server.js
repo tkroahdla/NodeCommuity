@@ -1,7 +1,8 @@
 const express= require('express');
 const app = express();
 const nunjucks = require('nunjucks');
-const axios = require('axios');
+const axios = require('axios').default;
+const passport = require('passport');
 const qs = require('qs');
 const session = require('express-session');
 require('dotenv').config({path: __dirname + '\\' + '.env'});
@@ -63,9 +64,13 @@ app.get('/auth/kakao/callback', async(req,res)=>{
     }catch(e){
         res.json(e.data);
     }
-    console.log(user);
+    
+    // console.log(user.data.kakao_account.profile);
+    // console.log(user.data);
+
  
     req.session.kakao = user.data;
+    console.log(token.data.access_token)
     //req.session = {['kakao'] : user.data};
     
     res.send('success');
@@ -79,14 +84,62 @@ app.get('/auth/info',(req,res)=>{
     })
 })
  
- 
+// 카카오 로그아웃
+// auth//kakao/logout
+app.get('/auth/logout', async (req,res)=>{
+    // https://kapi.kakao/com/v1/user/logout
+    try {
+      const ACCESS_TOKEN = token.data.access_token;
+      let logout = await axios({
+        method:'post',
+        url:'https://kapi.kakao.com/v1/user/unlink',
+        headers:{
+          'Authorization': `Bearer ${ACCESS_TOKEN}`
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      res.json(error);
+    }
+    // 세션 정리
+    // req.logout();
+    req.session.destroy();
+    
+    res.redirect('/');
+  })
+// token.data.access_token
+// app.get('/auth/logout', async function (req, res, next) {
+//     var session = req.session;
+//     try {
+//         if (session.kakao) { //세션정보가 존재하는 경우
+//             console.log('존재한다.')
+//             await req.session.destroy(function (err) {
+//                 if (err)
+//                     console.log(err)
+//                 else {
+//                 //   res.redirect('/');
+//                 }
+//             })
+//         }
+//         console.log('존재하지않다.')
+//     }
+//     catch (e) {
+//       console.log(e)
+//     }
+//   res.redirect('/');
+// })
+
 app.get('/',(req,res)=>{
-   
     res.render('index');
 });
- 
+
+
+
+
+
 app.get(kakao.redirectUri)
  
 app.listen(3000, ()=>{
     console.log(`server start 3000`);
 })
+
