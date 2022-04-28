@@ -14,6 +14,7 @@
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "nunjucks": "^3.2.3",
+    "passport": "^0.5.2",
     "qs": "^6.10.3",
     "session": "^0.1.0"
   }
