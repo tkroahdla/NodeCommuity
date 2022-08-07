@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const qrCode = require('qrcode');
 const userModel = require('./models/user');
 
-const URL = "mongodb+srv://tkroahdla:i65636@cluster0.drjhg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const URL = "";
 mongoose.connect(URL);
 
 const app = express();
